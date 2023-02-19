@@ -1,15 +1,15 @@
 package dev.abidux.survival.event.skills.plantar;
 
 import dev.abidux.survival.Main;
-import dev.abidux.survival.enums.SkillType;
 import dev.abidux.survival.manager.PlayerSkill;
 import dev.abidux.survival.manager.SkillManager;
 import dev.abidux.survival.manager.SkillSet;
+import dev.abidux.survival.manager.Skills;
+import dev.abidux.survival.model.CappedSkill;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +27,7 @@ public class CreateFarmlandEvent implements Listener {
         if (!item.getType().toString().endsWith("_HOE")) return;
 
         SkillSet set = SkillManager.get(player);
-        SkillType type = SkillType.PLANTAR;
+        CappedSkill type = Skills.PLANTAR;
         PlayerSkill skill = set.get(type);
 
         Damageable meta = (Damageable) item.getItemMeta();
@@ -52,12 +52,11 @@ public class CreateFarmlandEvent implements Listener {
         if (skill.xp >= evolve) {
             skill.xp = 0;
             skill.level++;
-            player.sendMessage("§6+1 LEVEL §7- " + type.getName());
+            player.sendMessage("§6+1 LEVEL §7- " + type.name.legacyText);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         } else {
-            TextComponent component = new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.getComponent());
+            TextComponent component = new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.name.component);
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, component);
         }
     }
-
 }

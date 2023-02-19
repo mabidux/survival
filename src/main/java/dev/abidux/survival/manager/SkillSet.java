@@ -1,16 +1,16 @@
 package dev.abidux.survival.manager;
 
-import dev.abidux.survival.enums.SkillType;
+import dev.abidux.survival.model.Skill;
 
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-public class SkillSet extends HashMap<SkillType, PlayerSkill> {
+public class SkillSet extends HashMap<Skill, PlayerSkill> {
 
     @Override
     public PlayerSkill get(Object key) {
-        if (!(key instanceof SkillType)) return null;
-        SkillType type = (SkillType) key;
+        if (!(key instanceof Skill)) return null;
+        Skill type = (Skill) key;
         PlayerSkill skill = super.get(type);
         if (skill == null) put(type, (skill = new PlayerSkill(0, 0)));
         return skill;
@@ -26,7 +26,7 @@ public class SkillSet extends HashMap<SkillType, PlayerSkill> {
         for (String part : serialized.split(";")) {
             String[] s = part.split(":");
             String[] l = s[1].split("/");
-            SkillType type = SkillType.valueOf(s[0]);
+            Skill type = Skills.getSkillByName(s[0]);
             int level = Integer.parseInt(l[0]);
             int xp = Integer.parseInt(l[1]);
             set.put(type, new PlayerSkill(level, xp));

@@ -1,9 +1,11 @@
 package dev.abidux.survival.event.skills.ferraria;
 
-import dev.abidux.survival.enums.SkillType;
 import dev.abidux.survival.manager.PlayerSkill;
 import dev.abidux.survival.manager.SkillManager;
 import dev.abidux.survival.manager.SkillSet;
+import dev.abidux.survival.manager.Skills;
+import dev.abidux.survival.model.CappedSkill;
+import dev.abidux.survival.model.Skill;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Sound;
@@ -29,7 +31,7 @@ public class CraftEvent implements Listener {
         if (tool.isTool) {
             Player player = (Player) event.getViewers().get(0);
             SkillSet set = SkillManager.get(player);
-            PlayerSkill skill = set.get(SkillType.FERRARIA);
+            PlayerSkill skill = set.get(Skills.FERRARIA);
 
             float percentage = (skill.level + 1) * .1f;
             Damageable meta = (Damageable) result.getItemMeta();
@@ -51,7 +53,7 @@ public class CraftEvent implements Listener {
         if (tool.isTool) {
             Player player = (Player) event.getWhoClicked();
             SkillSet set = SkillManager.get(player);
-            SkillType type = SkillType.FERRARIA;
+            CappedSkill type = Skills.FERRARIA;
             PlayerSkill skill = set.get(type);
             int evolve = type.levels[skill.level];
             if (evolve == -1) return;
@@ -69,9 +71,9 @@ public class CraftEvent implements Listener {
             if (skill.xp >= evolve) {
                 skill.xp = 0;
                 skill.level++;
-                player.sendMessage("§6+1 LEVEL §7- " + type.getName());
+                player.sendMessage("§6+1 LEVEL §7- " + type.name.legacyText);
                 player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-            } else player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.getComponent()));
+            } else player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.name.component));
         }
     }
 
@@ -92,7 +94,6 @@ public class CraftEvent implements Listener {
                 case GOLDEN_PICKAXE, GOLDEN_AXE, GOLDEN_SWORD, GOLDEN_HOE, GOLDEN_SHOVEL -> ToolType.GOLDEN;
                 case IRON_PICKAXE, IRON_AXE, IRON_SWORD, IRON_HOE, IRON_SHOVEL -> ToolType.IRON;
                 case DIAMOND_PICKAXE, DIAMOND_AXE, DIAMOND_SWORD, DIAMOND_HOE, DIAMOND_SHOVEL -> ToolType.DIAMOND;
-                case NETHERITE_PICKAXE, NETHERITE_AXE, NETHERITE_SWORD, NETHERITE_HOE, NETHERITE_SHOVEL -> ToolType.NETHERITE;
                 default -> null;
             };
         }
@@ -111,8 +112,7 @@ public class CraftEvent implements Listener {
         STONE(2),
         GOLDEN(2),
         IRON(4),
-        DIAMOND(5),
-        NETHERITE(10);
+        DIAMOND(5);
 
         public final int xp;
         ToolType(int xp) {

@@ -1,10 +1,11 @@
 package dev.abidux.survival.event.skills.serraria;
 
 import dev.abidux.survival.Main;
-import dev.abidux.survival.enums.SkillType;
 import dev.abidux.survival.manager.PlayerSkill;
 import dev.abidux.survival.manager.SkillManager;
 import dev.abidux.survival.manager.SkillSet;
+import dev.abidux.survival.manager.Skills;
+import dev.abidux.survival.model.CappedSkill;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
@@ -30,7 +31,7 @@ public class BreakLogEvent implements Listener {
         if (xp == 0) return;
 
         SkillSet set = SkillManager.get(player);
-        SkillType type = SkillType.SERRARIA;
+        CappedSkill type = Skills.SERRARIA;
         PlayerSkill skill = set.get(type);
 
         if (skill.level == 0) {
@@ -53,10 +54,10 @@ public class BreakLogEvent implements Listener {
         if (skill.xp >= evolve) {
             skill.xp = 0;
             skill.level++;
-            player.sendMessage("§6+1 LEVEL §7- " + type.getName());
+            player.sendMessage("§6+1 LEVEL §7- " + type.name.legacyText);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         } else {
-            TextComponent component = new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.getComponent());
+            TextComponent component = new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.name.component);
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, component);
         }
     }

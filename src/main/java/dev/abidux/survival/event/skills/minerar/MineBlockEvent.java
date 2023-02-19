@@ -1,13 +1,12 @@
 package dev.abidux.survival.event.skills.minerar;
 
 import dev.abidux.survival.Main;
-import dev.abidux.survival.enums.SkillType;
 import dev.abidux.survival.manager.PlayerSkill;
 import dev.abidux.survival.manager.SkillManager;
 import dev.abidux.survival.manager.SkillSet;
-import net.md_5.bungee.api.ChatColor;
+import dev.abidux.survival.manager.Skills;
+import dev.abidux.survival.model.CappedSkill;
 import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -19,8 +18,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
-
-import java.util.Random;
 
 public class MineBlockEvent implements Listener {
 
@@ -35,7 +32,7 @@ public class MineBlockEvent implements Listener {
         if (xp == 0) return;
 
         SkillSet set = SkillManager.get(player);
-        SkillType type = SkillType.MINERAR;
+        CappedSkill type = Skills.MINERAR;
         PlayerSkill skill = set.get(type);
 
         if (skill.level == 0) {
@@ -67,10 +64,10 @@ public class MineBlockEvent implements Listener {
         if (skill.xp >= evolve) {
             skill.xp = 0;
             skill.level++;
-            player.sendMessage("§6+1 LEVEL §7- " + type.getName());
+            player.sendMessage("§6+1 LEVEL §7- " + type.name.legacyText);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         } else {
-            TextComponent component = new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.getComponent());
+            TextComponent component = new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.name.component);
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, component);
         }
     }
@@ -78,7 +75,7 @@ public class MineBlockEvent implements Listener {
     private int getBlockXP(Material material, ItemStack pickaxe) {
         if (pickaxe.containsEnchantment(Enchantment.SILK_TOUCH)) return 1;
         return switch(material) {
-            case STONE, ANDESITE, DIORITE, GRANITE, DEEPSLATE -> 1;
+            case STONE, ANDESITE, DIORITE, GRANITE, DEEPSLATE, TUFF -> 1;
             case COAL_ORE, IRON_ORE, COPPER_ORE, NETHER_QUARTZ_ORE, NETHER_GOLD_ORE, DEEPSLATE_COAL_ORE, DEEPSLATE_IRON_ORE, DEEPSLATE_COPPER_ORE -> 2;
             case GOLD_ORE, REDSTONE_ORE, LAPIS_ORE, DEEPSLATE_GOLD_ORE, DEEPSLATE_REDSTONE_ORE, DEEPSLATE_LAPIS_ORE, OBSIDIAN -> 3;
             case DIAMOND_ORE, EMERALD_ORE, DEEPSLATE_DIAMOND_ORE, DEEPSLATE_EMERALD_ORE -> 5;

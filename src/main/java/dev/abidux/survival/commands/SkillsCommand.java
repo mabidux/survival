@@ -1,8 +1,8 @@
 package dev.abidux.survival.commands;
 
-import dev.abidux.survival.enums.SkillType;
 import dev.abidux.survival.manager.SkillManager;
 import dev.abidux.survival.manager.SkillSet;
+import dev.abidux.survival.manager.Skills;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -32,13 +32,13 @@ public class SkillsCommand implements CommandExecutor {
 
     private Inventory buildInventory(SkillSet set) {
         Inventory inventory = Bukkit.createInventory(null, 3*9, "Skills");
-        inventory.setItem(10, SkillType.FERRARIA.getIcon(set));
-        inventory.setItem(11, SkillType.MINERAR.getIcon(set));
-        inventory.setItem(12, SkillType.PLANTAR.getIcon(set));
-        inventory.setItem(13, SkillType.SERRARIA.getIcon(set));
+        inventory.setItem(10, Skills.FERRARIA.buildIcon(set));
+        inventory.setItem(11, Skills.MINERAR.buildIcon(set));
+        inventory.setItem(12, Skills.PLANTAR.buildIcon(set));
+        inventory.setItem(13, Skills.SERRARIA.buildIcon(set));
 
-        inventory.setItem(15, SkillType.OFENSIVA.getIcon(set));
-        inventory.setItem(16, SkillType.DEFENSIVA.getIcon(set));
+        inventory.setItem(15, Skills.OFENSIVA.buildIcon(set));
+        inventory.setItem(16, Skills.DEFENSIVA.buildIcon(set));
         return inventory;
     }
 }
