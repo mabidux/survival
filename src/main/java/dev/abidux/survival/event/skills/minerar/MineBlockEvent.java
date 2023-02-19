@@ -35,22 +35,23 @@ public class MineBlockEvent implements Listener {
         CappedSkill type = Skills.MINERAR;
         PlayerSkill skill = set.get(type);
 
-        if (skill.level == 0) {
+        int level = skill.getLevel();
+        if (level == 0) {
             Damageable meta = (Damageable) item.getItemMeta();
             meta.setDamage(meta.getDamage() + 1);
             item.setItemMeta(meta);
-        } else if (skill.level >= 2) {
-            int chance = (skill.level - 1) * 5;
+        } else if (level >= 2) {
+            int chance = (level - 1) * 5;
             int r = Main.random.nextInt(100);
             if (r < chance) {
                 Damageable meta = (Damageable) item.getItemMeta();
                 meta.setDamage(meta.getDamage() - 1);
                 item.setItemMeta(meta);
             }
-            if (skill.level >= 7) {
+            if (level >= 7) {
                 if (!block.getType().toString().endsWith("ORE")) return;
 
-                int bonusFortune = skill.level - 6;
+                int bonusFortune = level - 6;
                 int bonus = Main.random.nextInt(bonusFortune + 1);
                 ItemStack stack = block.getDrops().iterator().next().clone();
                 stack.setAmount(bonus);
@@ -58,18 +59,7 @@ public class MineBlockEvent implements Listener {
             }
         }
 
-        int evolve = type.levels[skill.level];
-        if (evolve == -1) return;
-        skill.xp += xp;
-        if (skill.xp >= evolve) {
-            skill.xp = 0;
-            skill.level++;
-            player.sendMessage("§6+1 LEVEL §7- " + type.name.legacyText);
-            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-        } else {
-            TextComponent component = new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.name.component);
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, component);
-        }
+        skill.addXp(player, xp);
     }
 
     private int getBlockXP(Material material, ItemStack pickaxe) {

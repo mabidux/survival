@@ -33,7 +33,7 @@ public class CraftEvent implements Listener {
             SkillSet set = SkillManager.get(player);
             PlayerSkill skill = set.get(Skills.FERRARIA);
 
-            float percentage = (skill.level + 1) * .1f;
+            float percentage = (skill.getLevel() + 1) * .1f;
             Damageable meta = (Damageable) result.getItemMeta();
 
             int totalDurability = result.getType().getMaxDurability() - meta.getDamage();
@@ -55,7 +55,7 @@ public class CraftEvent implements Listener {
             SkillSet set = SkillManager.get(player);
             CappedSkill type = Skills.FERRARIA;
             PlayerSkill skill = set.get(type);
-            int evolve = type.levels[skill.level];
+            int evolve = type.levels[skill.getLevel()];
             if (evolve == -1) return;
 
             Optional<Integer> opt = Arrays.stream(player.getInventory().getContents()).filter(item -> item == null || item.isSimilar(result))
@@ -67,13 +67,7 @@ public class CraftEvent implements Listener {
             if (leastAmount.isEmpty() || (least = leastAmount.get()) == 127) return;
             int count = Math.min(opt.get(), least);
             int earned = tool.type.xp * count;
-            skill.xp += earned;
-            if (skill.xp >= evolve) {
-                skill.xp = 0;
-                skill.level++;
-                player.sendMessage("§6+1 LEVEL §7- " + type.name.legacyText);
-                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-            } else player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.name.component));
+            skill.addXp(player, earned);
         }
     }
 

@@ -9,16 +9,15 @@ public class SkillSet extends HashMap<Skill, PlayerSkill> {
 
     @Override
     public PlayerSkill get(Object key) {
-        if (!(key instanceof Skill)) return null;
-        Skill type = (Skill) key;
+        if (!(key instanceof Skill type)) return null;
         PlayerSkill skill = super.get(type);
-        if (skill == null) put(type, (skill = new PlayerSkill(0, 0)));
+        if (skill == null) put(type, (skill = new PlayerSkill(type, 0, 0)));
         return skill;
     }
 
     @Override
     public String toString() {
-        return entrySet().stream().map(entry -> entry.getKey() + ":" + entry.getValue().level + "/" + entry.getValue().xp).collect(Collectors.joining(";"));
+        return entrySet().stream().map(entry -> entry.getKey() + ":" + entry.getValue().getLevel() + "/" + entry.getValue().getXp()).collect(Collectors.joining(";"));
     }
 
     public static SkillSet deserialize(String serialized) {
@@ -29,7 +28,7 @@ public class SkillSet extends HashMap<Skill, PlayerSkill> {
             Skill type = Skills.getSkillByName(s[0]);
             int level = Integer.parseInt(l[0]);
             int xp = Integer.parseInt(l[1]);
-            set.put(type, new PlayerSkill(level, xp));
+            set.put(type, new PlayerSkill(type, level, xp));
         }
         return set;
     }

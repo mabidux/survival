@@ -23,13 +23,15 @@ public class CappedSkill extends Skill {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name.legacyText);
-        if (skill.level == levels.length - 1) {
+        int level = skill.getLevel();
+        int xp = skill.getXp();
+        if (level == levels.length - 1) {
             meta.setLore(Arrays.asList(
                     ChatColor.of("#fcba03") + "Nível: " + ChatColor.of("#a30808") + "M" + ChatColor.of("#bf0a0a") + "Á" + ChatColor.of("#eb1515") + "X"));
         } else {
             meta.setLore(Arrays.asList(
-                    ChatColor.of("#fcba03") + "Nível: " + (skill.level + 1),
-                    "§bXP: " + skill.xp + "/" + levels[skill.level])
+                    ChatColor.of("#fcba03") + "Nível: " + (level + 1),
+                    "§bXP: " + xp + "/" + levels[level])
             );
         }
         item.setItemMeta(meta);

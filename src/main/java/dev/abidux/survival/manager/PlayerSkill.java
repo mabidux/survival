@@ -1,11 +1,44 @@
 package dev.abidux.survival.manager;
 
+import dev.abidux.survival.model.CappedSkill;
+import dev.abidux.survival.model.Skill;
+import dev.abidux.survival.model.UncappedSkill;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
+
 public class PlayerSkill {
 
-    public int level, xp;
-    public PlayerSkill(int level, int xp) {
+    public final Skill type;
+    private int level, xp;
+    public PlayerSkill(Skill type, int level, int xp) {
+        this.type = type;
         this.level = level;
         this.xp = xp;
     }
 
+    public void addXp(Player player, int amount) {
+        int evolve = type instanceof CappedSkill cap ? cap.levels[level] : ((UncappedSkill) type).calculateXpByLevelFunction.apply(level);
+        if (evolve == -1) return;
+        xp += amount;
+
+        TextComponent component;
+        if (xp >= evolve) {
+            xp = 0;
+            level++;
+            player.sendMessage("§6+1 LEVEL §7- " + type.name.legacyText);
+            component = new TextComponent(new TextComponent("§6+1 LEVEL §7- "), type.name.component);
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+        } else component = new TextComponent(new TextComponent("§b" + xp + "/" + evolve + " XP §7- "), type.name.component);
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, component);
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public int getLevel() {
+        return level;
+    }
 }

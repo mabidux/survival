@@ -24,9 +24,11 @@ public class UncappedSkill extends Skill {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name.legacyText);
+        int level = skill.getLevel();
+        int xp = skill.getXp();
         meta.setLore(Arrays.asList(
-                ChatColor.of("#fcba03") + "Nível: " + (skill.level + 1),
-                "§bXP: " + skill.xp + "/" + calculateXpByLevelFunction.apply(skill.level))
+                ChatColor.of("#fcba03") + "Nível: " + (level + 1),
+                "§bXP: " + xp + "/" + calculateXpByLevelFunction.apply(level))
         );
         item.setItemMeta(meta);
         return item;

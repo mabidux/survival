@@ -31,10 +31,11 @@ public class CreateFarmlandEvent implements Listener {
         PlayerSkill skill = set.get(type);
 
         Damageable meta = (Damageable) item.getItemMeta();
-        if (skill.level == 0) {
+        int level = skill.getLevel();
+        if (level == 0) {
             meta.setDamage(meta.getDamage() + 1);
-        } else if (skill.level >= 2) {
-            int chance = (skill.level - 1) * 5;
+        } else if (level >= 2) {
+            int chance = (level - 1) * 5;
             int r = Main.random.nextInt(100);
             if (r < chance) {
                 meta.setDamage(meta.getDamage() - 1);
@@ -46,17 +47,6 @@ public class CreateFarmlandEvent implements Listener {
         }
         item.setItemMeta(meta);
 
-        int evolve = type.levels[skill.level];
-        if (evolve == -1) return;
-        skill.xp++;
-        if (skill.xp >= evolve) {
-            skill.xp = 0;
-            skill.level++;
-            player.sendMessage("§6+1 LEVEL §7- " + type.name.legacyText);
-            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-        } else {
-            TextComponent component = new TextComponent(new TextComponent("§b" + skill.xp + "/" + evolve + " XP §7- "), type.name.component);
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, component);
-        }
+        skill.addXp(player, 1);
     }
 }
