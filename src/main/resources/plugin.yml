@@ -1,0 +1,7 @@
+name: Survival
+version: '${project.version}'
+main: dev.abidux.survival.Main
+api-version: 1.19
+authors: [ abidux ]
+commands:
+  skills:
