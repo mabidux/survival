@@ -5,9 +5,8 @@ import dev.abidux.survival.manager.PlayerSkill;
 import dev.abidux.survival.manager.SkillManager;
 import dev.abidux.survival.manager.SkillSet;
 import dev.abidux.survival.manager.Skills;
-import dev.abidux.survival.model.CappedSkill;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import dev.abidux.survival.model.skills.skill.CappedSkill;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
@@ -25,9 +24,8 @@ public class HarvestEvent implements Listener {
     void blockBreak(BlockBreakEvent event) {
         Block block = event.getBlock();
         BlockData data = block.getBlockData();
-        if (!(data instanceof Ageable)) return;
-        Ageable ageable = (Ageable) data;
-        if (ageable.getAge() != ageable.getMaximumAge()) return;
+        if (!(data instanceof Ageable ageable) || ageable.getAge() != ageable.getMaximumAge()) return;
+
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         if (!item.getType().toString().endsWith("_HOE")) return;
@@ -38,11 +36,6 @@ public class HarvestEvent implements Listener {
 
         Damageable meta = (Damageable) item.getItemMeta();
         meta.setDamage(meta.getDamage() + 1);
-        if (meta.getDamage() >= item.getType().getMaxDurability()) {
-            player.getInventory().setItemInMainHand(null);
-            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
-        }
-
         int level = skill.getLevel();
         if (level >= 2) {
             int chance = (level - 1) * 5;
@@ -53,12 +46,19 @@ public class HarvestEvent implements Listener {
             if (level >= 7) {
                 int bonusFortune = level - 6;
                 int bonus = Main.random.nextInt(bonusFortune + 1);
-                ItemStack stack = block.getDrops().iterator().next().clone();
-                stack.setAmount(bonus);
-                block.getWorld().dropItem(block.getLocation(), stack);
+
+                ItemStack stack = block.getDrops().stream().filter(i -> i.getType() != Material.WHEAT_SEEDS && i.getType() != Material.BEETROOT_SEEDS).findFirst().orElse(null);
+                if (stack != null) {
+                    stack.setAmount(bonus);
+                    block.getWorld().dropItem(block.getLocation(), stack);
+                }
             }
         }
         item.setItemMeta(meta);
+        if (meta.getDamage() >= item.getType().getMaxDurability()) {
+            player.getInventory().setItemInMainHand(null);
+            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+        }
 
         skill.addXp(player, 1);
     }

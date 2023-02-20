@@ -1,6 +1,6 @@
 package dev.abidux.survival.manager;
 
-import dev.abidux.survival.model.Skill;
+import dev.abidux.survival.model.skills.skill.Skill;
 
 import java.util.HashMap;
 import java.util.stream.Collectors;

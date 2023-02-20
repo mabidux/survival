@@ -1,4 +1,4 @@
-package dev.abidux.survival.model;
+package dev.abidux.survival.model.skills.skill;
 
 import dev.abidux.survival.manager.PlayerSkill;
 import dev.abidux.survival.manager.SkillSet;
@@ -8,14 +8,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
-import java.util.function.IntFunction;
 
-public class UncappedSkill extends Skill {
+public class CappedSkill extends Skill {
 
-    public final IntFunction<Integer> calculateXpByLevelFunction;
-    public UncappedSkill(ColoredText name, Material material, IntFunction<Integer> calculateXpByLevelFunction) {
+    public final int[] levels;
+    public CappedSkill(ColoredText name, Material material, int... levels) {
         super(name, material);
-        this.calculateXpByLevelFunction = calculateXpByLevelFunction;
+        this.levels = levels;
     }
 
     @Override
@@ -26,10 +25,15 @@ public class UncappedSkill extends Skill {
         meta.setDisplayName(name.legacyText);
         int level = skill.getLevel();
         int xp = skill.getXp();
-        meta.setLore(Arrays.asList(
-                ChatColor.of("#fcba03") + "Nível: " + (level + 1),
-                "§bXP: " + xp + "/" + calculateXpByLevelFunction.apply(level))
-        );
+        if (level == levels.length - 1) {
+            meta.setLore(Arrays.asList(
+                    ChatColor.of("#fcba03") + "Nível: " + ChatColor.of("#a30808") + "M" + ChatColor.of("#bf0a0a") + "Á" + ChatColor.of("#eb1515") + "X"));
+        } else {
+            meta.setLore(Arrays.asList(
+                    ChatColor.of("#fcba03") + "Nível: " + (level + 1),
+                    "§bXP: " + xp + "/" + levels[level])
+            );
+        }
         item.setItemMeta(meta);
         return item;
     }

@@ -1,4 +1,4 @@
-package dev.abidux.survival.model;
+package dev.abidux.survival.model.skills.skill;
 
 import dev.abidux.survival.manager.SkillSet;
 import net.md_5.bungee.api.ChatColor;

@@ -1,8 +1,8 @@
 package dev.abidux.survival.manager;
 
-import dev.abidux.survival.model.CappedSkill;
-import dev.abidux.survival.model.Skill;
-import dev.abidux.survival.model.UncappedSkill;
+import dev.abidux.survival.model.skills.skill.CappedSkill;
+import dev.abidux.survival.model.skills.skill.Skill;
+import dev.abidux.survival.model.skills.skill.UncappedSkill;
 import org.bukkit.Material;
 
 public class Skills {
