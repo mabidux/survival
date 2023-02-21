@@ -1,20 +1,15 @@
 package dev.abidux.survival;
 
-import dev.abidux.survival.commands.SkillsCommand;
-import dev.abidux.survival.event.skills.SkillInventoryClick;
-import dev.abidux.survival.event.skills.combate.defensiva.TakeDamageEvent;
-import dev.abidux.survival.event.skills.combate.ofensiva.KillEntityEvent;
-import dev.abidux.survival.event.skills.ferraria.CraftEvent;
-import dev.abidux.survival.event.betterdoors.OpenDoorEvent;
-import dev.abidux.survival.event.skills.minerar.MineBlockEvent;
-import dev.abidux.survival.event.skills.plantar.CreateFarmlandEvent;
-import dev.abidux.survival.event.skills.plantar.HarvestEvent;
-import dev.abidux.survival.event.skills.serraria.BreakLogEvent;
+import com.google.common.reflect.ClassPath;
 import dev.abidux.survival.manager.SkillManager;
 import dev.abidux.survival.manager.SkillSet;
+import dev.abidux.survival.util.CommandRegistry;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.util.Random;
 
 public final class Main extends JavaPlugin {
@@ -29,17 +24,7 @@ public final class Main extends JavaPlugin {
         saveDefaultConfig();
         loadSkills();
 
-        getCommand("skills").setExecutor(new SkillsCommand());
-
-        Bukkit.getPluginManager().registerEvents(new OpenDoorEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new CraftEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new MineBlockEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new SkillInventoryClick(), this);
-        Bukkit.getPluginManager().registerEvents(new BreakLogEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new HarvestEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new CreateFarmlandEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new KillEntityEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new TakeDamageEvent(), this);
+        loadPlugin();
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             saveSkills();
@@ -51,6 +36,26 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         saveSkills();
         saveConfig();
+    }
+
+    private void loadPlugin() {
+        try {
+            for (ClassPath.ClassInfo info : ClassPath.from(getClassLoader()).getTopLevelClassesRecursive("dev.abidux.survival")) {
+                Class<?> cls = Class.forName(info.getName());
+                if (Listener.class.isAssignableFrom(cls)) {
+                    Bukkit.getPluginManager().registerEvents((Listener) cls.newInstance(), this);
+                    Bukkit.getConsoleSender().sendMessage("§e[Survival] Evento '" + cls.getSimpleName() + "' registrado.");
+                } else if (CommandExecutor.class.isAssignableFrom(cls) && cls.isAnnotationPresent(CommandRegistry.class)) {
+                    CommandRegistry registry = cls.getDeclaredAnnotation(CommandRegistry.class);
+                    getCommand(registry.value()).setExecutor((CommandExecutor) cls.newInstance());
+                    Bukkit.getConsoleSender().sendMessage("§e[Survival] Comando '" + cls.getSimpleName() + "' registrado.");
+                }
+            }
+            Bukkit.getConsoleSender().sendMessage("§a[Survival] Plugin iniciado.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Bukkit.getConsoleSender().sendMessage("§c[Survival] Plugin não pôde ser iniciado.");
+        }
     }
 
     public void saveSkills() {

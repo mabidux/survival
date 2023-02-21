@@ -4,7 +4,6 @@ import dev.abidux.survival.manager.PlayerSkill;
 import dev.abidux.survival.manager.SkillManager;
 import dev.abidux.survival.manager.SkillSet;
 import dev.abidux.survival.manager.Skills;
-import dev.abidux.survival.model.skills.skill.UncappedSkill;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

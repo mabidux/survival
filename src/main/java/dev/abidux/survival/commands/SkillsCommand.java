@@ -3,6 +3,7 @@ package dev.abidux.survival.commands;
 import dev.abidux.survival.manager.SkillManager;
 import dev.abidux.survival.manager.SkillSet;
 import dev.abidux.survival.manager.Skills;
+import dev.abidux.survival.util.CommandRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
+@CommandRegistry("skills")
 public class SkillsCommand implements CommandExecutor {
 
     @Override

@@ -20,12 +20,11 @@ public class TakeDamageEvent implements Listener {
 
         double damage = Math.max(event.getDamage() - skill.getLevel(), 0);
         event.setDamage(damage);
-        int receivedXp = (int) (damage - 4);
-        if (receivedXp <= 0) return;
+        if (event.getDamager() instanceof Player) return;
 
-        if (event.getFinalDamage() < player.getHealth()) {
+        int receivedXp = (int) (damage - 4);
+        if (receivedXp > 0 && event.getFinalDamage() < player.getHealth()) {
             skill.addXp(player, receivedXp);
-            player.sendMessage("received: " + receivedXp);
         }
     }
 
