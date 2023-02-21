@@ -2,6 +2,8 @@ package dev.abidux.survival;
 
 import dev.abidux.survival.commands.SkillsCommand;
 import dev.abidux.survival.event.skills.SkillInventoryClick;
+import dev.abidux.survival.event.skills.combate.defensiva.TakeDamageEvent;
+import dev.abidux.survival.event.skills.combate.ofensiva.KillEntityEvent;
 import dev.abidux.survival.event.skills.ferraria.CraftEvent;
 import dev.abidux.survival.event.betterdoors.OpenDoorEvent;
 import dev.abidux.survival.event.skills.minerar.MineBlockEvent;
@@ -36,6 +38,8 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new BreakLogEvent(), this);
         Bukkit.getPluginManager().registerEvents(new HarvestEvent(), this);
         Bukkit.getPluginManager().registerEvents(new CreateFarmlandEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new KillEntityEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new TakeDamageEvent(), this);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             saveSkills();
