@@ -1,6 +1,6 @@
 package dev.abidux.survival.event.mobs;
 
-import dev.abidux.survival.information.ActionbarInformation;
+import dev.abidux.survival.information.Information;
 import dev.abidux.survival.util.LocationUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +13,7 @@ public class Move implements Listener {
         int zoneFrom = LocationUtil.getZone(event.getFrom());
         int zoneTo = LocationUtil.getZone(event.getTo());
         if (zoneFrom != zoneTo) {
-            ActionbarInformation.send(event.getPlayer(), event.getTo());
+            Information.sendActionbar(event.getPlayer(), event.getTo());
         }
     }
 

@@ -28,15 +28,16 @@ public class PlayerSkill {
         xp += amount;
 
         if (silent) return;
-        TextComponent component;
         if (xp >= evolve) {
             xp = 0;
             level++;
             player.sendMessage("§6+1 LEVEL §7- " + type.name.legacyText);
-            component = new TextComponent(new TextComponent("§6+1 LEVEL §7- "), type.name.component);
+
+            TextComponent component = new TextComponent(new TextComponent("§6+1 LEVEL §7- "), type.name.component);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, component);
+
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-        } else component = new TextComponent(new TextComponent("§b" + xp + "/" + evolve + " XP §7- "), type.name.component);
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, component);
+        }
     }
 
     public boolean isMaxed() {
