@@ -15,7 +15,8 @@ public class LocationUtil {
 
     public static int getZone(Location location) {
         double distance = distanceFromSpawn(location);
-        return (int)distance / Configuration.ZONE_SIZE;
+        int zone = (int)distance / Configuration.ZONE_SIZE;
+        return location.getWorld().getName().equals("world") ? zone : zone + 1;
     }
 
 }

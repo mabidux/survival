@@ -19,13 +19,13 @@ public class Information {
     }
 
     public static void updatePlayerList(Player player) {
-        Location loc = player.getLocation();
+        Location location = player.getLocation();
         BlockFace face = player.getFacing();
-        int zone = LocationUtil.getZone(loc);
+        int zone = LocationUtil.getZone(location);
         StringBuilder header = new StringBuilder();
-        header.append("\n§fX: §e").append(loc.getBlockX())
-                .append("\n§fY: §e").append(loc.getBlockY())
-                .append("\n§fZ: §e").append(loc.getBlockZ())
+        header.append("\n§fX: §e").append(location.getBlockX())
+                .append("\n§fY: §e").append(location.getBlockY())
+                .append("\n§fZ: §e").append(location.getBlockZ())
                 .append("\n§f Olhando para §e").append(translate(face))
                 .append(" (X: ").append(face.getModX()).append(", Z: ").append(face.getModZ())
                 .append(") \n");
