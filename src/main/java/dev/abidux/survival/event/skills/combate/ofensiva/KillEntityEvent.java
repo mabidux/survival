@@ -4,6 +4,7 @@ import dev.abidux.survival.manager.PlayerSkill;
 import dev.abidux.survival.manager.SkillManager;
 import dev.abidux.survival.manager.SkillSet;
 import dev.abidux.survival.manager.Skills;
+import dev.abidux.survival.util.LocationUtil;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -20,6 +21,8 @@ public class KillEntityEvent implements Listener {
 
         int xp = getEntityXp(entity.getType());
         if (xp == 0) return;
+        int zone = LocationUtil.getZone(entity.getLocation());
+        xp *= 1 + zone / 4f;
 
         Player player = entity.getKiller();
         SkillSet set = SkillManager.get(player);
