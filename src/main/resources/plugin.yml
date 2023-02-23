@@ -1,6 +1,6 @@
-name: Survival
+name: Survive
 version: '${project.version}'
-main: dev.abidux.survival.Main
+main: dev.abidux.survive.Main
 api-version: 1.19
 authors: [ abidux ]
 commands:
