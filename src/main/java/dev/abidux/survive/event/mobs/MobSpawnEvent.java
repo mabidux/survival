@@ -17,6 +17,11 @@ public class MobSpawnEvent implements Listener {
     @EventHandler
     void spawn(CreatureSpawnEvent event) {
         LivingEntity entity = event.getEntity();
+        if (entity.getType() == EntityType.ENDER_DRAGON) {
+            changeAttribute(entity, Attribute.GENERIC_MAX_HEALTH, a -> 50000.0);
+            return;
+        }
+
         Location location = event.getLocation();
         int zone = LocationUtil.getZone(location);
         if (zone == 0 && shouldCancelSpawn(entity.getType())) {
@@ -33,9 +38,9 @@ public class MobSpawnEvent implements Listener {
 
     private static void changeAttribute(LivingEntity entity, Attribute attribute, Function<Double, Double> baseToModified) {
         AttributeInstance instance = entity.getAttribute(attribute);
-        if (instance != null) {
-            instance.setBaseValue(baseToModified.apply(instance.getBaseValue()));
-        }
+        if (instance == null) return;
+        instance.setBaseValue(baseToModified.apply(instance.getBaseValue()));
+        if (attribute == Attribute.GENERIC_MAX_HEALTH) entity.setHealth(instance.getBaseValue());
     }
 
     private static boolean shouldCancelSpawn(EntityType type) {
