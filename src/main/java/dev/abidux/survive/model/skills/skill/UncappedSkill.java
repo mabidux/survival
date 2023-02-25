@@ -9,12 +9,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
-import java.util.function.IntFunction;
+import java.util.function.LongFunction;
 
 public class UncappedSkill extends Skill {
 
-    public final IntFunction<Integer> calculateXpByLevelFunction;
-    public UncappedSkill(ColoredText name, Material material, IntFunction<Integer> calculateXpByLevelFunction) {
+    public final LongFunction<Long> calculateXpByLevelFunction;
+    public UncappedSkill(ColoredText name, Material material, LongFunction<Long> calculateXpByLevelFunction) {
         super(name, material);
         this.calculateXpByLevelFunction = calculateXpByLevelFunction;
     }
@@ -26,7 +26,7 @@ public class UncappedSkill extends Skill {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name.legacyText);
         int level = skill.getLevel();
-        int xp = skill.getXp();
+        long xp = skill.getXp();
         meta.setLore(Arrays.asList(
                 ChatColor.of("#fcba03") + "Nível: " + (level + 1),
                 "§bXP: " + xp + "/" + calculateXpByLevelFunction.apply(level))

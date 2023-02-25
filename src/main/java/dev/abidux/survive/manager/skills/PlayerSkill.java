@@ -12,15 +12,16 @@ import org.bukkit.entity.Player;
 public class PlayerSkill {
 
     public final Skill type;
-    private int level, xp;
-    public PlayerSkill(Skill type, int level, int xp) {
+    private int level;
+    private long xp;
+    public PlayerSkill(Skill type, int level, long xp) {
         this.type = type;
         this.level = level;
         this.xp = xp;
     }
 
     public void addXp(Player player, int amount) {
-        int evolve = type instanceof CappedSkill cap ? cap.levels[level] : ((UncappedSkill) type).calculateXpByLevelFunction.apply(level);
+        long evolve = type instanceof CappedSkill cap ? cap.levels[level] : ((UncappedSkill) type).calculateXpByLevelFunction.apply(level);
         if (evolve == -1) return;
         xp += amount;
 
@@ -44,7 +45,7 @@ public class PlayerSkill {
         return type instanceof CappedSkill capped && capped.levels[level] == -1;
     }
 
-    public int getXp() {
+    public long getXp() {
         return xp;
     }
 
