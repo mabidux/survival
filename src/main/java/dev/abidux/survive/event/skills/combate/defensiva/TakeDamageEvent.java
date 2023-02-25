@@ -1,9 +1,8 @@
 package dev.abidux.survive.event.skills.combate.defensiva;
 
-import dev.abidux.survive.manager.PlayerSkill;
+import dev.abidux.survive.manager.skills.PlayerSkill;
 import dev.abidux.survive.manager.PlayerStats;
-import dev.abidux.survive.manager.SkillSet;
-import dev.abidux.survive.manager.Skills;
+import dev.abidux.survive.manager.skills.Skills;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

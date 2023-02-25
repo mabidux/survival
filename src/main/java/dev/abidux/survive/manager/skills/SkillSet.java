@@ -1,4 +1,4 @@
-package dev.abidux.survive.manager;
+package dev.abidux.survive.manager.skills;
 
 import dev.abidux.survive.model.skills.skill.Skill;
 

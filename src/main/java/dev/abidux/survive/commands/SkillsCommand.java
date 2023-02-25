@@ -1,8 +1,8 @@
 package dev.abidux.survive.commands;
 
 import dev.abidux.survive.manager.PlayerStats;
-import dev.abidux.survive.manager.SkillSet;
-import dev.abidux.survive.manager.Skills;
+import dev.abidux.survive.manager.skills.SkillSet;
+import dev.abidux.survive.manager.skills.Skills;
 import dev.abidux.survive.util.CommandRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

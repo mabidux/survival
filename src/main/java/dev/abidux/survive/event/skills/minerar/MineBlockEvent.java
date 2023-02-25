@@ -1,10 +1,9 @@
 package dev.abidux.survive.event.skills.minerar;
 
 import dev.abidux.survive.Main;
-import dev.abidux.survive.manager.PlayerSkill;
+import dev.abidux.survive.manager.skills.PlayerSkill;
 import dev.abidux.survive.manager.PlayerStats;
-import dev.abidux.survive.manager.SkillSet;
-import dev.abidux.survive.manager.Skills;
+import dev.abidux.survive.manager.skills.Skills;
 import dev.abidux.survive.model.skills.skill.CappedSkill;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

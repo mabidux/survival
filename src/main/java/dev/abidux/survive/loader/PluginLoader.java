@@ -3,7 +3,7 @@ package dev.abidux.survive.loader;
 import com.google.common.reflect.ClassPath;
 import dev.abidux.survive.Main;
 import dev.abidux.survive.manager.PlayerStats;
-import dev.abidux.survive.manager.SkillSet;
+import dev.abidux.survive.manager.skills.SkillSet;
 import dev.abidux.survive.scheduler.Scheduler;
 import dev.abidux.survive.util.CommandRegistry;
 import org.bukkit.Bukkit;
@@ -58,10 +58,12 @@ public class PluginLoader {
 
     private static void loadSkills() {
         if (!Main.getInstance().getConfig().isSet("skills")) return;
-        Main.getInstance().getConfig().getConfigurationSection("skills").getKeys(true).forEach(key -> {
-            String serializedSkills = Main.getInstance().getConfig().getString("skills." + key);
+        Main.getInstance().getConfig().getConfigurationSection("skills").getKeys(true).forEach(player -> {
+            String serializedSkills = Main.getInstance().getConfig().getString("skills." + player);
             SkillSet set = SkillSet.deserialize(serializedSkills);
-            PlayerStats.PLAYER_STATS.put(key, new PlayerStats(set));
+
+            boolean showXp = Main.getInstance().getConfig().getBoolean("preferences." + player + ".showxp");
+            PlayerStats.PLAYER_STATS.put(player, new PlayerStats(set, showXp));
         });
     }
 }

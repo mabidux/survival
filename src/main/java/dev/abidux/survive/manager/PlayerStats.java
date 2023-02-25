@@ -1,5 +1,6 @@
 package dev.abidux.survive.manager;
 
+import dev.abidux.survive.manager.skills.SkillSet;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -15,13 +16,15 @@ public class PlayerStats {
     }
 
     private SkillSet skillSet;
+    public boolean showXp;
 
-    public PlayerStats(SkillSet skillSet) {
+    public PlayerStats(SkillSet skillSet, boolean showXp) {
         this.skillSet = skillSet;
+        this.showXp = showXp;
     }
 
     public PlayerStats() {
-        this(new SkillSet());
+        this(new SkillSet(), true);
     }
 
     public SkillSet getSkillSet() {
