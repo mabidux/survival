@@ -28,7 +28,7 @@ public class KillEntityEvent implements Listener {
         SkillSet set = SkillManager.get(player);
         PlayerSkill skill = set.get(Skills.OFENSIVA);
 
-        skill.addXp(player, xp);
+        skill.addXp(player, xp, true);
     }
 
     private int getEntityXp(EntityType type) {

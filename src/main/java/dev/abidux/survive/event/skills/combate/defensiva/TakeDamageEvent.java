@@ -34,10 +34,10 @@ public class TakeDamageEvent implements Listener {
         if (event.getDamager().getType() == EntityType.ENDER_DRAGON) event.setDamage(200);
         else if (event.getDamager().getType() == EntityType.AREA_EFFECT_CLOUD) event.setDamage(50);
 
-        double damage = Math.max(event.getDamage() - skill.getLevel(), 0);
+        double damage = Math.max(event.getFinalDamage() - skill.getLevel(), 0);
         int receivedXp = (int) (damage - 4);
-        if (receivedXp > 0 && event.getFinalDamage() < player.getHealth()) {
-            skill.addXp(player, receivedXp);
+        if (receivedXp > 0 && damage < player.getHealth()) {
+            skill.addXp(player, receivedXp, true);
         }
     }
 
