@@ -1,7 +1,7 @@
 package dev.abidux.survive.event.skills.combate.ofensiva;
 
 import dev.abidux.survive.manager.PlayerSkill;
-import dev.abidux.survive.manager.SkillManager;
+import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.manager.SkillSet;
 import dev.abidux.survive.manager.Skills;
 import org.bukkit.entity.Player;
@@ -15,8 +15,8 @@ public class DamageEntityEvent implements Listener {
     void damage(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player player)) return;
 
-        SkillSet set = SkillManager.get(player);
-        PlayerSkill skill = set.get(Skills.OFENSIVA);
+        PlayerStats stats = PlayerStats.get(player);
+        PlayerSkill skill = stats.getSkillSet().get(Skills.OFENSIVA);
 
         double modifiedDamage = event.getDamage() + skill.getLevel();
         double damage = modifiedDamage * player.getAttackCooldown();

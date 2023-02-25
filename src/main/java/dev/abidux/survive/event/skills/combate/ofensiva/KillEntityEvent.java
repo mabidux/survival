@@ -1,7 +1,7 @@
 package dev.abidux.survive.event.skills.combate.ofensiva;
 
 import dev.abidux.survive.manager.PlayerSkill;
-import dev.abidux.survive.manager.SkillManager;
+import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.manager.SkillSet;
 import dev.abidux.survive.manager.Skills;
 import dev.abidux.survive.util.LocationUtil;
@@ -25,10 +25,10 @@ public class KillEntityEvent implements Listener {
         xp *= 1 + zone / 4f;
 
         Player player = entity.getKiller();
-        SkillSet set = SkillManager.get(player);
-        PlayerSkill skill = set.get(Skills.OFENSIVA);
+        PlayerStats stats = PlayerStats.get(player);
+        PlayerSkill skill = stats.getSkillSet().get(Skills.OFENSIVA);
 
-        skill.addXp(player, xp, true);
+        skill.addXp(player, xp);
     }
 
     private int getEntityXp(EntityType type) {

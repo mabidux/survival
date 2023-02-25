@@ -19,15 +19,10 @@ public class PlayerSkill {
     }
 
     public void addXp(Player player, int amount) {
-        addXp(player, amount, false);
-    }
-
-    public void addXp(Player player, int amount, boolean silent) {
         int evolve = type instanceof CappedSkill cap ? cap.levels[level] : ((UncappedSkill) type).calculateXpByLevelFunction.apply(level);
         if (evolve == -1) return;
         xp += amount;
 
-        if (silent) return;
         if (xp >= evolve) {
             xp = 0;
             level++;

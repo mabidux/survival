@@ -2,8 +2,7 @@ package dev.abidux.survive.event.skills.serraria;
 
 import dev.abidux.survive.Main;
 import dev.abidux.survive.manager.PlayerSkill;
-import dev.abidux.survive.manager.SkillManager;
-import dev.abidux.survive.manager.SkillSet;
+import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.manager.Skills;
 import dev.abidux.survive.model.skills.skill.CappedSkill;
 import org.bukkit.Material;
@@ -27,9 +26,9 @@ public class BreakLogEvent implements Listener {
         int xp = getBlockXP(block.getType());
         if (xp == 0) return;
 
-        SkillSet set = SkillManager.get(player);
         CappedSkill type = Skills.SERRARIA;
-        PlayerSkill skill = set.get(type);
+        PlayerStats stats = PlayerStats.get(player);
+        PlayerSkill skill = stats.getSkillSet().get(type);
 
         int level = skill.getLevel();
         if (level == 0) {

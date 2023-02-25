@@ -1,7 +1,7 @@
 package dev.abidux.survive.event.skills.ferraria;
 
 import dev.abidux.survive.manager.PlayerSkill;
-import dev.abidux.survive.manager.SkillManager;
+import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.manager.SkillSet;
 import dev.abidux.survive.manager.Skills;
 import dev.abidux.survive.model.skills.skill.CappedSkill;
@@ -28,8 +28,8 @@ public class CraftEvent implements Listener {
         Tool tool = new Tool(result);
         if (tool.isTool) {
             Player player = (Player) event.getViewers().get(0);
-            SkillSet set = SkillManager.get(player);
-            PlayerSkill skill = set.get(Skills.FERRARIA);
+            PlayerStats stats = PlayerStats.get(player);
+            PlayerSkill skill = stats.getSkillSet().get(Skills.FERRARIA);
 
             damageItemByPlayerLevel(result, skill.getLevel());
         }
@@ -52,9 +52,9 @@ public class CraftEvent implements Listener {
         Tool tool = new Tool(result);
         if (tool.isTool) {
             Player player = (Player) event.getWhoClicked();
-            SkillSet set = SkillManager.get(player);
             CappedSkill type = Skills.FERRARIA;
-            PlayerSkill skill = set.get(type);
+            PlayerStats stats = PlayerStats.get(player);
+            PlayerSkill skill = stats.getSkillSet().get(type);
             if (skill.isMaxed()) return;
 
             int space = calculateSpaceForItem(inventory, result);

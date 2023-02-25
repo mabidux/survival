@@ -2,7 +2,7 @@ package dev.abidux.survive.loader;
 
 import com.google.common.reflect.ClassPath;
 import dev.abidux.survive.Main;
-import dev.abidux.survive.manager.SkillManager;
+import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.manager.SkillSet;
 import dev.abidux.survive.scheduler.Scheduler;
 import dev.abidux.survive.util.CommandRegistry;
@@ -61,7 +61,7 @@ public class PluginLoader {
         Main.getInstance().getConfig().getConfigurationSection("skills").getKeys(true).forEach(key -> {
             String serializedSkills = Main.getInstance().getConfig().getString("skills." + key);
             SkillSet set = SkillSet.deserialize(serializedSkills);
-            SkillManager.PLAYER_SKILLS.put(key, set);
+            PlayerStats.PLAYER_STATS.put(key, new PlayerStats(set));
         });
     }
 }

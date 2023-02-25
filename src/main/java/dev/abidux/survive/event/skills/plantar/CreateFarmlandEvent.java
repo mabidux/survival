@@ -2,7 +2,7 @@ package dev.abidux.survive.event.skills.plantar;
 
 import dev.abidux.survive.Main;
 import dev.abidux.survive.manager.PlayerSkill;
-import dev.abidux.survive.manager.SkillManager;
+import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.manager.SkillSet;
 import dev.abidux.survive.manager.Skills;
 import dev.abidux.survive.model.skills.skill.CappedSkill;
@@ -24,9 +24,9 @@ public class CreateFarmlandEvent implements Listener {
         ItemStack item = player.getInventory().getItemInMainHand();
         if (!item.getType().toString().endsWith("_HOE")) return;
 
-        SkillSet set = SkillManager.get(player);
         CappedSkill type = Skills.PLANTAR;
-        PlayerSkill skill = set.get(type);
+        PlayerStats stats = PlayerStats.get(player);
+        PlayerSkill skill = stats.getSkillSet().get(type);
 
         Damageable meta = (Damageable) item.getItemMeta();
         int level = skill.getLevel();

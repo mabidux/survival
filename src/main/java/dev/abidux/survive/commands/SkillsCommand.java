@@ -1,6 +1,6 @@
 package dev.abidux.survive.commands;
 
-import dev.abidux.survive.manager.SkillManager;
+import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.manager.SkillSet;
 import dev.abidux.survive.manager.Skills;
 import dev.abidux.survive.util.CommandRegistry;
@@ -23,12 +23,11 @@ public class SkillsCommand implements CommandExecutor {
     }
 
     private Inventory createForPlayer(Player player) {
-        SkillSet set = SkillManager.get(player);
-        return buildInventory(set);
+        return buildInventory(PlayerStats.get(player).getSkillSet());
     }
 
     private Inventory createForThird(String player) {
-        SkillSet set = SkillManager.PLAYER_SKILLS.getOrDefault(player.toLowerCase(), new SkillSet());
+        SkillSet set = PlayerStats.PLAYER_STATS.getOrDefault(player.toLowerCase(), new PlayerStats()).getSkillSet();
         return buildInventory(set);
     }
 

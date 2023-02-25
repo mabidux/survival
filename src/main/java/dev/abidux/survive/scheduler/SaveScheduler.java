@@ -1,7 +1,7 @@
 package dev.abidux.survive.scheduler;
 
 import dev.abidux.survive.Main;
-import dev.abidux.survive.manager.SkillManager;
+import dev.abidux.survive.manager.PlayerStats;
 
 public class SaveScheduler extends Scheduler {
 
@@ -21,6 +21,6 @@ public class SaveScheduler extends Scheduler {
     }
 
     private void saveSkills() {
-        SkillManager.PLAYER_SKILLS.forEach((player, skillSet) -> Main.getInstance().getConfig().set("skills." + player, skillSet.toString()));
+        PlayerStats.PLAYER_STATS.forEach((player, stats) -> Main.getInstance().getConfig().set("skills." + player, stats.getSkillSet().toString()));
     }
 }
