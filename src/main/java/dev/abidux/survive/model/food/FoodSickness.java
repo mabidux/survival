@@ -18,7 +18,7 @@ public class FoodSickness {
     }
 
     public void incrementSickness() {
-        if (++amountAte < 4) return;
+        if (++amountAte < 3) return;
         level = Math.min(level + 1, 20);
         amountAte = 0;
         expiration = System.currentTimeMillis() + SICKNESS_TIME;

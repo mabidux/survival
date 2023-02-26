@@ -3,7 +3,10 @@ package dev.abidux.survive.manager.food;
 import dev.abidux.survive.model.food.FoodSickness;
 import org.bukkit.Material;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -33,8 +36,17 @@ public class FoodSystem {
         if (sickness != null) sicknessConsumer.accept(sickness);
     }
 
-    public void executeExpirationProcess() {
-        FOOD_SICKNESS_EXPIRE.values().removeIf(sickness -> sickness.getExpiration() <= System.currentTimeMillis());
+    public ArrayList<Material> executeExpirationProcess() {
+        ArrayList<Material> removed = new ArrayList<>();
+        Iterator<Map.Entry<Material, FoodSickness>> iterator = FOOD_SICKNESS_EXPIRE.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Material, FoodSickness> entry = iterator.next();
+            if (entry.getValue().getExpiration() <= System.currentTimeMillis()) {
+                removed.add(entry.getKey());
+                iterator.remove();
+            }
+        }
+        return removed;
     }
 
     @Override
