@@ -1,5 +1,6 @@
 package dev.abidux.survive.event.plugin;
 
+import dev.abidux.survive.manager.ActionbarManager;
 import dev.abidux.survive.util.chat.ColoredText;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -22,5 +23,7 @@ public class PlayerJoinQuit implements Listener {
         event.setQuitMessage(null);
         String message = "§8[§c-§8] §c" + event.getPlayer().getName();
         Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(message));
+
+        ActionbarManager.PLAYER_LAST_ZONE_WARNING.remove(event.getPlayer().getName());
     }
 }

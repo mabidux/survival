@@ -1,8 +1,8 @@
 package dev.abidux.survive.model.food;
 
-public class FoodSickness {
+import dev.abidux.survive.config.Configuration;
 
-    private static final int SICKNESS_TIME = 600_000;
+public class FoodSickness {
 
     private long expiration;
     private int level;
@@ -14,14 +14,14 @@ public class FoodSickness {
     }
 
     public FoodSickness(int level, int amountAte) {
-        this(System.currentTimeMillis() + SICKNESS_TIME, level, amountAte);
+        this(System.currentTimeMillis() + Configuration.FOOD_SICKNESS_TIME, level, amountAte);
     }
 
     public boolean incrementSickness() {
         if (++amountAte < 4) return false;
         level = Math.min(level + 1, 20);
         amountAte = 0;
-        expiration = System.currentTimeMillis() + SICKNESS_TIME;
+        expiration = System.currentTimeMillis() + Configuration.FOOD_SICKNESS_TIME;
         return true;
     }
 

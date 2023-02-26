@@ -1,6 +1,7 @@
 package dev.abidux.survive.event.mobs;
 
 import dev.abidux.survive.information.Information;
+import dev.abidux.survive.manager.ActionbarManager;
 import dev.abidux.survive.util.LocationUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,6 +16,7 @@ public class SendActionbarEvent implements Listener {
         if (zoneFrom != zoneTo) {
             Information.sendActionbar(event.getPlayer(), event.getTo());
         }
+        ActionbarManager.PLAYER_LAST_ZONE_WARNING.put(event.getPlayer().getName(), System.currentTimeMillis());
     }
 
 }

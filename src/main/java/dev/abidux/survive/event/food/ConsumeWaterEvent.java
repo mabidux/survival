@@ -1,6 +1,7 @@
 package dev.abidux.survive.event.food;
 
 import dev.abidux.survive.Main;
+import dev.abidux.survive.manager.ActionbarManager;
 import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.manager.food.ThirstSystem;
 import org.bukkit.Material;
@@ -39,6 +40,7 @@ public class ConsumeWaterEvent implements Listener {
         if (!purified && Main.random.nextInt(100) < 20) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 20 * 30, 1));
         }
+        ActionbarManager.update(player, true);
     }
 
 }
