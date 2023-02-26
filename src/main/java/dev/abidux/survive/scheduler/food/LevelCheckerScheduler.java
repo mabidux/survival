@@ -7,8 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class NauseaScheduler extends Scheduler {
-    public NauseaScheduler() {
+public class LevelCheckerScheduler extends Scheduler {
+    public LevelCheckerScheduler() {
         super(100);
     }
 
@@ -18,7 +18,10 @@ public class NauseaScheduler extends Scheduler {
             PlayerStats stats = PlayerStats.get(player);
             ThirstSystem thirstSystem = stats.getThirstSystem();
             if (player.getFoodLevel() <= 6 || thirstSystem.getThirst() <= 6) {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 120, 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
+            }
+            if (thirstSystem.getThirst() == 0) {
+                player.damage(2);
             }
         });
     }

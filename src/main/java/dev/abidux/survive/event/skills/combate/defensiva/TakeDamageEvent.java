@@ -17,7 +17,8 @@ public class TakeDamageEvent implements Listener {
     void takeDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player player)
                 || event.getCause() == EntityDamageEvent.DamageCause.DROWNING
-                || event.getCause() == EntityDamageEvent.DamageCause.VOID) return;
+                || event.getCause() == EntityDamageEvent.DamageCause.VOID
+                || event.getCause() == EntityDamageEvent.DamageCause.CUSTOM) return;
         PlayerStats stats = PlayerStats.get(player);
         PlayerSkill skill = stats.getSkillSet().get(Skills.DEFENSIVA);
         double damage = Math.max(event.getDamage() - skill.getLevel(), 0);
