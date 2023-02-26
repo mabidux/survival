@@ -1,4 +1,4 @@
-package dev.abidux.survive.manager.skills;
+package dev.abidux.survive.model.skills;
 
 import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.model.skills.skill.CappedSkill;

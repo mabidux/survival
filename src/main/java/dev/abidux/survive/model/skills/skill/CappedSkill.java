@@ -1,7 +1,7 @@
 package dev.abidux.survive.model.skills.skill;
 
-import dev.abidux.survive.manager.skills.PlayerSkill;
 import dev.abidux.survive.manager.skills.SkillSet;
+import dev.abidux.survive.model.skills.PlayerSkill;
 import dev.abidux.survive.util.ColoredText;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;

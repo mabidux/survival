@@ -1,5 +1,6 @@
 package dev.abidux.survive.manager.skills;
 
+import dev.abidux.survive.model.skills.PlayerSkill;
 import dev.abidux.survive.model.skills.skill.Skill;
 
 import java.util.HashMap;
