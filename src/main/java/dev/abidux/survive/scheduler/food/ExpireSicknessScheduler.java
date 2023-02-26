@@ -32,6 +32,6 @@ public class ExpireSicknessScheduler extends Scheduler {
     private static final ChatColor YELLOWISH_ORANGE = ChatColor.of("#eb9e34");
     private static final ChatColor ORANGE = ChatColor.of("#d95b29");
     private void sendExpiredSickness(Player player, Material material) {
-        player.sendMessage(YELLOWISH_ORANGE + "Talvez comer " + ORANGE + MaterialUtil.prettifyMaterial(material) + YELLOWISH_ORANGE + " não pareça tão ruim...");
+        player.sendMessage(YELLOWISH_ORANGE + "Talvez comer " + ORANGE + MaterialUtil.prettifyMaterial(material) + YELLOWISH_ORANGE + " não pareça mais tão ruim...");
     }
 }

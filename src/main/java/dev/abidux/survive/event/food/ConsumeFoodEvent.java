@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Optional;
 
-public class ConsumeEvent implements Listener {
+public class ConsumeFoodEvent implements Listener {
 
     @EventHandler
     void consume(PlayerItemConsumeEvent event) {

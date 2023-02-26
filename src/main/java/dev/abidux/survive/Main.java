@@ -7,9 +7,6 @@ import java.util.Random;
 
 public final class Main extends JavaPlugin {
 
-    // TODO
-    // fazer com que o xp seja long, em vez de int
-
     private static Main instance;
     public static final Random random = new Random();
 

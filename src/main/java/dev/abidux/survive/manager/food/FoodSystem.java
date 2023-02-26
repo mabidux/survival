@@ -68,7 +68,7 @@ public class FoodSystem {
             Material material = Material.getMaterial(separatedMaterial[0]);
             int level = Integer.parseInt(data[0]);
             int amountAte = Integer.parseInt(data[1]);
-            int expiration = Integer.parseInt(data[2]);
+            long expiration = Long.parseLong(data[2]);
 
             foodSystem.FOOD_SICKNESS_EXPIRE.put(material, new FoodSickness(expiration, level, amountAte));
         }

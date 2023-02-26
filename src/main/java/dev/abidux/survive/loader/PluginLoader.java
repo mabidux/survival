@@ -4,12 +4,14 @@ import com.google.common.reflect.ClassPath;
 import dev.abidux.survive.Main;
 import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.manager.food.FoodSystem;
+import dev.abidux.survive.manager.food.ThirstSystem;
 import dev.abidux.survive.manager.skills.SkillSet;
 import dev.abidux.survive.scheduler.Scheduler;
 import dev.abidux.survive.util.registry.CommandRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.Recipe;
 
 import java.util.HashSet;
 
@@ -53,6 +55,10 @@ public class PluginLoader {
                 SCHEDULERS.add(scheduler);
                 Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), scheduler::start, 0, scheduler.ticks);
                 Bukkit.getConsoleSender().sendMessage("§e[Survive] Scheduler '" + cls.getSimpleName() + "' registrado.");
+            } else if (Recipe.class.isAssignableFrom(cls)) {
+                Recipe recipe = (Recipe) cls.newInstance();
+                Bukkit.getServer().addRecipe(recipe);
+                Bukkit.getConsoleSender().sendMessage("§e[Survive] Receita '" + cls.getSimpleName() + "' registrada.");
             }
         }
     }
@@ -69,8 +75,11 @@ public class PluginLoader {
                 foodSystem = FoodSystem.deserialize(serializedFoodSystem);
             } else foodSystem = new FoodSystem();
 
+            int thirst = Main.getInstance().getConfig().isSet("thirst." + player) ? Main.getInstance().getConfig().getInt("thirst." + player) : 20;
+            ThirstSystem thirstSystem = new ThirstSystem(thirst);
+
             boolean showXp = Main.getInstance().getConfig().getBoolean("preferences." + player + ".showxp");
-            PlayerStats.PLAYER_STATS.put(player, new PlayerStats(set, foodSystem, showXp));
+            PlayerStats.PLAYER_STATS.put(player, new PlayerStats(set, foodSystem, thirstSystem, showXp));
         });
     }
 }
