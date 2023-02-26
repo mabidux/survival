@@ -15,8 +15,8 @@ public class SendActionbarEvent implements Listener {
         int zoneTo = LocationUtil.getZone(event.getTo());
         if (zoneFrom != zoneTo) {
             Information.sendActionbar(event.getPlayer(), event.getTo());
+            ActionbarManager.PLAYER_LAST_ZONE_WARNING.put(event.getPlayer().getName(), System.currentTimeMillis());
         }
-        ActionbarManager.PLAYER_LAST_ZONE_WARNING.put(event.getPlayer().getName(), System.currentTimeMillis());
     }
 
 }
