@@ -1,8 +1,6 @@
 package dev.abidux.survive;
 
 import dev.abidux.survive.loader.PluginLoader;
-import dev.abidux.survive.util.ColoredText;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;

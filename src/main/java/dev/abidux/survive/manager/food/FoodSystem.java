@@ -19,16 +19,20 @@ public class FoodSystem {
         return expiration != null;
     }
 
+    public void addSickness(Material material, FoodSickness sickness) {
+        FOOD_SICKNESS_EXPIRE.put(material, sickness);
+    }
+
     public FoodSickness getSicknessOf(Material material) {
         return FOOD_SICKNESS_EXPIRE.get(material);
     }
 
-    public void incrementSickness(Material material) {
+    public boolean incrementSickness(Material material) {
         FoodSickness sickness = getSicknessOf(material);
         if (sickness == null) {
             FOOD_SICKNESS_EXPIRE.put(material, (sickness = new FoodSickness(0, 0)));
         }
-        sickness.incrementSickness();
+        return sickness.incrementSickness();
     }
 
     public void ifSickOf(Material material, Consumer<FoodSickness> sicknessConsumer) {
@@ -51,7 +55,7 @@ public class FoodSystem {
 
     @Override
     public String toString() {
-        return FOOD_SICKNESS_EXPIRE.entrySet().stream()
+        return FOOD_SICKNESS_EXPIRE.size() == 0 ? null : FOOD_SICKNESS_EXPIRE.entrySet().stream()
                 .map(entry -> entry.getKey() + ":" + entry.getValue().getLevel() + "/" + entry.getValue().getAmountAte() + "/" + entry.getValue().getExpiration())
                 .collect(Collectors.joining(";"));
     }

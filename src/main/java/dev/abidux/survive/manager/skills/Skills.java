@@ -3,7 +3,7 @@ package dev.abidux.survive.manager.skills;
 import dev.abidux.survive.model.skills.skill.CappedSkill;
 import dev.abidux.survive.model.skills.skill.Skill;
 import dev.abidux.survive.model.skills.skill.UncappedSkill;
-import dev.abidux.survive.util.ColoredText;
+import dev.abidux.survive.util.chat.ColoredText;
 import org.bukkit.Material;
 
 public class Skills {

@@ -1,4 +1,4 @@
-package dev.abidux.survive.util;
+package dev.abidux.survive.util.registry;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,8 +1,6 @@
 package dev.abidux.survive.event.plugin;
 
-import dev.abidux.survive.Main;
-import dev.abidux.survive.util.ColoredText;
-import net.md_5.bungee.api.ChatColor;
+import dev.abidux.survive.util.chat.ColoredText;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

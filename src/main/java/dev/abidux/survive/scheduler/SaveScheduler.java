@@ -23,7 +23,7 @@ public class SaveScheduler extends Scheduler {
     private void saveSkills() {
         PlayerStats.PLAYER_STATS.forEach((player, stats) -> {
             Main.getInstance().getConfig().set("skills." + player, stats.getSkillSet().toString());
-            Main.getInstance().getConfig().set("food." + player, stats.getFoodSystem().toString());
+            Main.getInstance().getConfig().set("food." + player, stats.getFoodSystem() == null ? null : stats.getFoodSystem().toString());
             Main.getInstance().getConfig().set("preferences." + player + ".showxp", stats.showXp);
         });
     }

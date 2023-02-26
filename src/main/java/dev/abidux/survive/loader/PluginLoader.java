@@ -6,7 +6,7 @@ import dev.abidux.survive.manager.PlayerStats;
 import dev.abidux.survive.manager.food.FoodSystem;
 import dev.abidux.survive.manager.skills.SkillSet;
 import dev.abidux.survive.scheduler.Scheduler;
-import dev.abidux.survive.util.CommandRegistry;
+import dev.abidux.survive.util.registry.CommandRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
@@ -63,8 +63,11 @@ public class PluginLoader {
             String serializedSkills = Main.getInstance().getConfig().getString("skills." + player);
             SkillSet set = SkillSet.deserialize(serializedSkills);
 
-            String serializedFoodSystem = Main.getInstance().getConfig().getString("food." + player);
-            FoodSystem foodSystem = FoodSystem.deserialize(serializedFoodSystem);
+            FoodSystem foodSystem;
+            if (Main.getInstance().getConfig().isSet("food." + player)) {
+                String serializedFoodSystem = Main.getInstance().getConfig().getString("food." + player);
+                foodSystem = FoodSystem.deserialize(serializedFoodSystem);
+            } else foodSystem = new FoodSystem();
 
             boolean showXp = Main.getInstance().getConfig().getBoolean("preferences." + player + ".showxp");
             PlayerStats.PLAYER_STATS.put(player, new PlayerStats(set, foodSystem, showXp));

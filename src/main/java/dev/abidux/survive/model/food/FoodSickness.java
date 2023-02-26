@@ -17,11 +17,12 @@ public class FoodSickness {
         this(System.currentTimeMillis() + SICKNESS_TIME, level, amountAte);
     }
 
-    public void incrementSickness() {
-        if (++amountAte < 3) return;
+    public boolean incrementSickness() {
+        if (++amountAte < 4) return false;
         level = Math.min(level + 1, 20);
         amountAte = 0;
         expiration = System.currentTimeMillis() + SICKNESS_TIME;
+        return true;
     }
 
     public long getExpiration() {

@@ -22,6 +22,7 @@ public class PlayerStats {
 
     public PlayerStats(SkillSet skillSet, FoodSystem foodSystem, boolean showXp) {
         this.skillSet = skillSet;
+        this.foodSystem = foodSystem;
         this.showXp = showXp;
     }
 
