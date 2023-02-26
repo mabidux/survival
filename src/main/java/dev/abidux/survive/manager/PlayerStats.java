@@ -1,5 +1,6 @@
 package dev.abidux.survive.manager;
 
+import dev.abidux.survive.manager.food.FoodSystem;
 import dev.abidux.survive.manager.skills.SkillSet;
 import org.bukkit.entity.Player;
 
@@ -16,15 +17,20 @@ public class PlayerStats {
     }
 
     private SkillSet skillSet;
+    private FoodSystem foodSystem;
     public boolean showXp;
 
-    public PlayerStats(SkillSet skillSet, boolean showXp) {
+    public PlayerStats(SkillSet skillSet, FoodSystem foodSystem, boolean showXp) {
         this.skillSet = skillSet;
         this.showXp = showXp;
     }
 
     public PlayerStats() {
-        this(new SkillSet(), true);
+        this(new SkillSet(), new FoodSystem(), true);
+    }
+
+    public FoodSystem getFoodSystem() {
+        return foodSystem;
     }
 
     public SkillSet getSkillSet() {

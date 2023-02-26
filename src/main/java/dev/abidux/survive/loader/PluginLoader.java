@@ -3,6 +3,7 @@ package dev.abidux.survive.loader;
 import com.google.common.reflect.ClassPath;
 import dev.abidux.survive.Main;
 import dev.abidux.survive.manager.PlayerStats;
+import dev.abidux.survive.manager.food.FoodSystem;
 import dev.abidux.survive.manager.skills.SkillSet;
 import dev.abidux.survive.scheduler.Scheduler;
 import dev.abidux.survive.util.CommandRegistry;
@@ -62,8 +63,11 @@ public class PluginLoader {
             String serializedSkills = Main.getInstance().getConfig().getString("skills." + player);
             SkillSet set = SkillSet.deserialize(serializedSkills);
 
+            String serializedFoodSystem = Main.getInstance().getConfig().getString("food." + player);
+            FoodSystem foodSystem = FoodSystem.deserialize(serializedFoodSystem);
+
             boolean showXp = Main.getInstance().getConfig().getBoolean("preferences." + player + ".showxp");
-            PlayerStats.PLAYER_STATS.put(player, new PlayerStats(set, showXp));
+            PlayerStats.PLAYER_STATS.put(player, new PlayerStats(set, foodSystem, showXp));
         });
     }
 }
