@@ -15,7 +15,7 @@ public class PlayerJoinQuit implements Listener {
         event.setJoinMessage(null);
         String message = "§8[§a+§8] §a" + event.getPlayer().getName();
         Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(message));
-        event.getPlayer().sendMessage(new ColoredText("{#e07726}Bem-vindo a {#c72412}Survive: Combat Update{#e07726}!").legacyText);
+        event.getPlayer().sendMessage(new ColoredText("{#e07726}Bem-vindo a {#c72412}Survive: Food Update{#e07726}!").legacyText);
     }
 
     @EventHandler
