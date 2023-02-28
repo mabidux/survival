@@ -13,7 +13,6 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        System.out.println("main");
         PluginLoader.loadPlugin();
     }
 
