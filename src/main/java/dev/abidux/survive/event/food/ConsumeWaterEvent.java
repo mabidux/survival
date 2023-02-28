@@ -39,6 +39,7 @@ public class ConsumeWaterEvent implements Listener {
         thirstSystem.setThirst(newThirst);
         if (!purified && Main.random.nextInt(100) < 20) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 20 * 30, 1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 * 5, 1));
         }
         ActionbarManager.update(player, true);
     }
