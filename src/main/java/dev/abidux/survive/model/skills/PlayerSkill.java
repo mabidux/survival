@@ -38,7 +38,7 @@ public class PlayerSkill {
         }
         PlayerStats stats = PlayerStats.get(player);
         if (!stats.showXp) return;
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(new TextComponent("§b" + amount + "/" + evolve + " XP §7- "), type.name.component));
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(new TextComponent("§b" + xp + "/" + evolve + " XP §7- "), type.name.component));
     }
 
     public boolean isMaxed() {

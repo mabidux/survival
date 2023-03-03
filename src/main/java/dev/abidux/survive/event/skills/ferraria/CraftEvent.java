@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.Damageable;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CraftEvent implements Listener {
 
@@ -56,7 +57,7 @@ public class CraftEvent implements Listener {
             PlayerSkill skill = stats.getSkillSet().get(type);
             if (skill.isMaxed()) return;
 
-            int space = calculateSpaceForItem(inventory, result);
+            int space = calculateSpaceForItem(player.getInventory(), result);
             if (space == 0) return;
 
             int leastAmount = calculateLeastAmount(inventory.getMatrix());
