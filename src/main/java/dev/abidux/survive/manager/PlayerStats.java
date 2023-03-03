@@ -3,6 +3,7 @@ package dev.abidux.survive.manager;
 import dev.abidux.survive.manager.food.FoodSystem;
 import dev.abidux.survive.manager.food.ThirstSystem;
 import dev.abidux.survive.manager.skills.SkillSet;
+import dev.abidux.survive.manager.skills.SkillXpAnnouncement;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class PlayerStats {
     private SkillSet skillSet;
     private FoodSystem foodSystem;
     private ThirstSystem thirstSystem;
+    public SkillXpAnnouncement skillXpAnnouncement = new SkillXpAnnouncement(null, 0, 0, 0);
     public boolean showXp;
 
     public PlayerStats(SkillSet skillSet, FoodSystem foodSystem, ThirstSystem thirstSystem, boolean showXp) {

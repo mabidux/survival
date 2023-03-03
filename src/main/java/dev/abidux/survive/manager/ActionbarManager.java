@@ -1,6 +1,7 @@
 package dev.abidux.survive.manager;
 
 import dev.abidux.survive.manager.food.ThirstSystem;
+import dev.abidux.survive.manager.skills.SkillXpAnnouncement;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
@@ -22,7 +23,14 @@ public class ActionbarManager {
         }
         PlayerStats stats = PlayerStats.get(player);
         ThirstSystem thirstSystem = stats.getThirstSystem();
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§bSede: " + thirstSystem.getThirst()));
+
+        String sedeMessage = "§bSede: " + thirstSystem.getThirst();
+        SkillXpAnnouncement announce = stats.skillXpAnnouncement;
+        boolean shouldShowXp = announce.announceTime + 2000 >= System.currentTimeMillis();
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, shouldShowXp
+                ? new TextComponent(new TextComponent(sedeMessage + " §7| §b" + announce.xp + "/" + announce.max + " §7- "),
+                announce.skill.name.component)
+                : new TextComponent(sedeMessage));
     }
 
 }

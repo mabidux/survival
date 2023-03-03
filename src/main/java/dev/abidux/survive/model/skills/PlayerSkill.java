@@ -1,6 +1,8 @@
 package dev.abidux.survive.model.skills;
 
+import dev.abidux.survive.manager.ActionbarManager;
 import dev.abidux.survive.manager.PlayerStats;
+import dev.abidux.survive.manager.skills.SkillXpAnnouncement;
 import dev.abidux.survive.model.skills.skill.CappedSkill;
 import dev.abidux.survive.model.skills.skill.Skill;
 import dev.abidux.survive.model.skills.skill.UncappedSkill;
@@ -38,7 +40,8 @@ public class PlayerSkill {
         }
         PlayerStats stats = PlayerStats.get(player);
         if (!stats.showXp) return;
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(new TextComponent("§b" + xp + "/" + evolve + " XP §7- "), type.name.component));
+        stats.skillXpAnnouncement = new SkillXpAnnouncement(type, xp, evolve);
+        ActionbarManager.update(player, true);
     }
 
     public boolean isMaxed() {
